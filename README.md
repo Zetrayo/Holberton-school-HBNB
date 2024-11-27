@@ -65,11 +65,6 @@ hbnb/
 ├── README.md
 ├── requirements.txt
 ├── run.py
-├── tests/
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_models.py
-│   ├── test_services.py
 ```
 
 ### Directory and files breakdown:
@@ -118,11 +113,6 @@ hbnb/
 ├── README.md                     # Project documentation
 ├── requirements.txt              # List of dependencies
 ├── run.py                        # Entry point to start the application
-├── tests/
-│   ├── __init__.py               # Initializes the test suite
-│   ├── test_api.py               # Tests for the API endpoints
-│   ├── test_models.py            # Tests for the data models
-│   ├── test_services.py          # Tests for the service layer
 ```
 
 ## Requirements
