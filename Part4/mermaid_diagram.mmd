@@ -1,0 +1,43 @@
+erDiagram
+    USERS {
+        CHAR(36) id
+        VARCHAR(255) first_name
+        VARCHAR(255) last_name
+        VARCHAR(255) email
+        VARCHAR(255) password
+        BOOLEAN is_admin
+    }
+    
+    PLACES {
+        CHAR(36) id
+        VARCHAR(255) title
+        TEXT description
+        DECIMAL(10, 2) price
+        FLOAT latitude
+        FLOAT longitude
+        CHAR(36) owner_id
+    }
+
+    REVIEWS {
+        CHAR(36) id
+        TEXT text
+        INT rating
+        CHAR(36) user_id
+        CHAR(36) place_id
+    }
+
+    AMENITIES {
+        CHAR(36) id
+        VARCHAR(255) name
+    }
+
+    PLACE_AMENITY {
+        CHAR(36) place_id
+        CHAR(36) amenity_id
+    }
+
+    USERS ||--o{ PLACES: "owns"
+    USERS ||--o{ REVIEWS: "writes"
+    PLACES ||--o{ REVIEWS: "has"
+    PLACES ||--o{ PLACE_AMENITY: "includes"
+    AMENITIES ||--o{ PLACE_AMENITY: "is included in"
