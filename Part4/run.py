@@ -18,7 +18,7 @@ with app.app_context():
 # Route to serve the HTML file
 @app.route('/index')
 def index():
-    return render_template('index/index.html')  # Renders 'index.html' from the 'templates' folder
+    return render_template('index.html')  # Renders 'index.html' from the 'templates' folder
 
 @app.route('/login')
 def login():
