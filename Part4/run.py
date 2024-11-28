@@ -16,9 +16,13 @@ with app.app_context():
     db.create_all()
 
 # Route to serve the HTML file
-@app.route('/home')
-def home():
+@app.route('/index')
+def index():
     return render_template('index/index.html')  # Renders 'index.html' from the 'templates' folder
+
+@app.route('/login')
+def login():
+    return render_template('auth/login.html')  # Renders 'index.html' from the 'templates' folder
 
 if __name__ == '__main__':
     app.run()
