@@ -1,0 +1,132 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%; /* Exemple : centrage vertical */
+    left: 50%; /* Exemple : centrage horizontal */
+    transform: translate(-50%, -50%); /* Centrage parfait */
+    background-color: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 150px;
+    color: #00bfff;
+  }
+  
+  .title::before {
+    content: ""; /* Crée une aura */
+    position: absolute; /* Position absolue par rapport au conteneur parent */
+    left: 10px; /* Aligne horizontalement avec le logo */
+    width: 50px; /* Taille de l'aura */
+    height: 50px; /* Taille de l'aura */
+    border-radius: 50%; /* Forme circulaire */
+    background-color: rgba(1, 226, 251, 0.4); /* Jaune avec transparence */
+    animation: pulse 1s linear infinite; /* Animation de pulsation */
+    z-index: 0; /* Place derrière le contenu */
+}
+
+.logo {
+    width: 100px; /* Taille du logo */
+    height: 40; /* Taille du logo */
+    position: absolute; /* Nécessaire pour le positionnement local */
+    top: 15%; /* Exemple : centrage vertical */
+    left: 2%; /* Exemple : centrage horizontal */
+}
+  .title::after {
+    width: 600px;
+    height: 600px;
+    animation: pulse 2s linear infinite;
+  }
+  
+  .title::before,
+  .title::after {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 25px;
+    border-radius: 70%;
+    top: 15%;
+    left: -5px;
+    background-color: #00bfff;
+  }
+  
+  .message, 
+  .signin {
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .signin {
+    text-align: center;
+  }
+  
+  .signin a:hover {
+    text-decoration: underline royalblue;
+  }
+  
+  .signin a {
+    color: #00bfff;
+  }
+  
+  .flex {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+  }
+  
+  .form label { /*Email and Passwords cases placement */
+    position: relative;
+  }
+  
+  .form label .input {
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+    padding: 20px 0px 0px 0px;
+    outline: 0;
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+  }
+  
+  .input {
+    font-size: medium;
+  }
+  
+  .submit {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transform: .3s ease;
+    background-color: #00bfff;
+  }
+  
+  .submit:hover {
+    background-color: #00bfff96;
+  }
+  
+  @keyframes pulse {
+    from {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+  
+    to {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
