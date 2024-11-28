@@ -20,7 +20,7 @@ with app.app_context():
 def index():
     return render_template('index.html')  # Renders 'index.html' from the 'templates' folder
 
-@app.route('/login')
+@app.route('/auth/login.html')
 def login():
     return render_template('auth/login.html')  # Renders 'index.html' from the 'templates' folder
 
