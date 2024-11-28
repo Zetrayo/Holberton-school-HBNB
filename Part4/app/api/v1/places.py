@@ -5,7 +5,7 @@ from app.services.facade import facade
 
 api = Namespace('places', description='Place operations')
 
-# Model for the Place entity, including token in the request body
+# Model for creating or updating a Place
 place_model = api.model('Place', {
     'title': fields.String(required=True, description='Title of the place'),
     'description': fields.String(description='Description of the place'),
@@ -13,8 +13,7 @@ place_model = api.model('Place', {
     'latitude': fields.Float(required=True, description='Latitude of the place'),
     'longitude': fields.Float(required=True, description='Longitude of the place'),
     'owner_id': fields.String(required=True, description='ID of the owner'),
-    'amenities': fields.List(fields.String, required=True, description="List of amenities"),
-    'token': fields.String(required=True, description="JWT Token for authorization")
+    'amenities': fields.List(fields.String, required=True, description="List of amenities")
 })
 
 @api.route('/')
@@ -26,10 +25,12 @@ class PlaceList(Resource):
     def post(self):
         """Register a new place with authorization token"""
         place_data = api.payload
-        token = place_data.get('token')  # Get the token from the payload (if included)
         current_user = get_jwt_identity()  # Get the current user from the JWT token
-        if token != current_user:
+        
+        # Ensure the owner_id matches the current user
+        if place_data.get('owner_id') != current_user:
             return {'error': 'Unauthorized to create place for another user'}, 403
+        
         try:
             new_place = facade.create_place(place_data)
             return {
@@ -48,11 +49,24 @@ class PlaceList(Resource):
             print(f"Error: {e}")  # For debugging purposes
             return {'message': 'Internal Server Error'}, 500
 
+    @jwt_required()  # JWT authorization for fetching the places
     @api.response(200, 'List of places retrieved successfully')
     def get(self):
-        """Retrieve a list of all places"""
-        places = facade.get_all_places()
-        return [{'id': place.id, 'title': place.title} for place in places], 200
+        """Retrieve a list of all places for the authenticated user"""
+        current_user = get_jwt_identity()
+        places = facade.get_places_by_user(current_user)  # Fetch places for the current user
+        return [
+            {
+                'id': place.id,
+                'title': place.title,
+                'description': place.description,
+                'price': place.price,
+                'latitude': place.latitude,
+                'longitude': place.longitude,
+                'amenities': place.amenities
+            }
+            for place in places
+        ], 200
 
 @api.route('/<place_id>')
 class PlaceResource(Resource):
@@ -67,6 +81,7 @@ class PlaceResource(Resource):
             'id': place.id,
             'title': place.title,
             'description': place.description,
+            'price': place.price,
             'latitude': place.latitude,
             'longitude': place.longitude,
             'owner_id': place.user.id,
@@ -85,4 +100,5 @@ class PlaceResource(Resource):
             return {'error': 'Place not found'}, 404
         if place.user.id != current_user:
             return {'error': 'Unauthorized action'}, 403
+        # Logic for updating place would go here
         return {'message': 'Place updated successfully'}, 200
