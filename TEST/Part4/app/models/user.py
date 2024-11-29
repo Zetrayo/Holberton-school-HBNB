@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 from extensions import bcrypt, db
 from .baseclass import BaseModel
 
