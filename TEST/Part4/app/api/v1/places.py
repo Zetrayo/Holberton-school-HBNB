@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.services.facade import facade
@@ -18,16 +18,15 @@ place_model = api.model('Place', {
 
 @api.route('/')
 class PlaceList(Resource):
-    @jwt_required()  # JWT authorization check
+    @jwt_required()
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
     def post(self):
         """Register a new place with authorization token"""
         place_data = api.payload
-        current_user = get_jwt_identity()  # Get the current user from the JWT token
+        current_user = get_jwt_identity()
         
-        # Ensure the owner_id matches the current user
         if place_data.get('owner_id') != current_user:
             return {'error': 'Unauthorized to create place for another user'}, 403
         
@@ -46,15 +45,15 @@ class PlaceList(Resource):
         except ValueError as e:
             return {'error': str(e)}, 400
         except Exception as e:
-            print(f"Error: {e}")  # For debugging purposes
+            print(f"Error: {e}")
             return {'message': 'Internal Server Error'}, 500
 
-    @jwt_required()  # JWT authorization for fetching the places
+    @jwt_required()
     @api.response(200, 'List of places retrieved successfully')
     def get(self):
         """Retrieve a list of all places for the authenticated user"""
         current_user = get_jwt_identity()
-        places = facade.get_places_by_user(current_user)  # Fetch places for the current user
+        places = facade.get_places_by_user(current_user)
         return [
             {
                 'id': place.id,
@@ -70,6 +69,7 @@ class PlaceList(Resource):
 
 @api.route('/<place_id>')
 class PlaceResource(Resource):
+    @jwt_required()
     @api.response(200, 'Place details retrieved successfully')
     @api.response(404, 'Place not found')
     def get(self, place_id):
@@ -89,6 +89,7 @@ class PlaceResource(Resource):
         }, 200
 
     @jwt_required()
+    @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
     @api.response(403, 'Unauthorized action')
     @api.response(404, 'Place not found')
@@ -98,7 +99,22 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
-        if place.user.id != current_user:
+        if str(place.user.id) != current_user:
             return {'error': 'Unauthorized action'}, 403
-        # Logic for updating place would go here
-        return {'message': 'Place updated successfully'}, 200
+        
+        place_data = api.payload
+        updated_place = facade.update_place(place_id, place_data)
+        
+        return {
+            'message': 'Place updated successfully',
+            'place': {
+                'id': updated_place.id,
+                'title': updated_place.title,
+                'description': updated_place.description,
+                'price': updated_place.price,
+                'latitude': updated_place.latitude,
+                'longitude': updated_place.longitude,
+                'owner_id': updated_place.user.id,
+                'amenities': updated_place.amenities
+            }
+        }, 200
