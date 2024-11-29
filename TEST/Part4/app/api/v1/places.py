@@ -1,4 +1,3 @@
-
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.services.facade import facade
@@ -12,7 +11,6 @@ place_model = api.model('Place', {
     'price': fields.Float(required=True, description='Price per night'),
     'latitude': fields.Float(required=True, description='Latitude of the place'),
     'longitude': fields.Float(required=True, description='Longitude of the place'),
-    'owner_id': fields.String(required=True, description='ID of the owner'),
     'amenities': fields.List(fields.String, required=True, description="List of amenities")
 })
 
@@ -27,8 +25,8 @@ class PlaceList(Resource):
         place_data = api.payload
         current_user = get_jwt_identity()
         
-        if place_data.get('owner_id') != current_user:
-            return {'error': 'Unauthorized to create place for another user'}, 403
+        # Set the owner_id to the current user
+        place_data['owner_id'] = current_user
         
         try:
             new_place = facade.create_place(place_data)
@@ -39,7 +37,7 @@ class PlaceList(Resource):
                 'price': new_place.price,
                 'latitude': new_place.latitude,
                 'longitude': new_place.longitude,
-                'owner_id': new_place.user.id,
+                'owner_id': new_place.owner_id,
                 'amenities': new_place.amenities
             }, 201
         except ValueError as e:
@@ -84,7 +82,7 @@ class PlaceResource(Resource):
             'price': place.price,
             'latitude': place.latitude,
             'longitude': place.longitude,
-            'owner_id': place.user.id,
+            'owner_id': place.owner_id,
             'amenities': place.amenities
         }, 200
 
@@ -97,14 +95,18 @@ class PlaceResource(Resource):
         """Update place details"""
         current_user = get_jwt_identity()
         place = facade.get_place(place_id)
+        
         if not place:
             return {'error': 'Place not found'}, 404
-        if str(place.user.id) != current_user:
+        
+        # Check if the current user is either the owner or an admin
+        if str(place.owner_id) != current_user and not facade.is_admin(current_user):
             return {'error': 'Unauthorized action'}, 403
         
+        # Update the details of the place
         place_data = api.payload
         updated_place = facade.update_place(place_id, place_data)
-        
+
         return {
             'message': 'Place updated successfully',
             'place': {
@@ -114,7 +116,7 @@ class PlaceResource(Resource):
                 'price': updated_place.price,
                 'latitude': updated_place.latitude,
                 'longitude': updated_place.longitude,
-                'owner_id': updated_place.user.id,
+                'owner_id': updated_place.owner_id,
                 'amenities': updated_place.amenities
             }
         }, 200
