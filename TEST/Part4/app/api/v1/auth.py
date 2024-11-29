@@ -4,14 +4,6 @@ from app.services.facade import facade
 
 api = Namespace('auth', description='Authentication operations')
 
-# New register model
-register_model = api.model('Register', {
-    'first_name': fields.String(required=True, description='First name of the user'),
-    'last_name': fields.String(required=True, description='Last name of the user'),
-    'email': fields.String(required=True, description='Email of the user'),
-    'password': fields.String(required=True, description='Password of the user')
-})
-
 # Model for input validation (searching by user email)
 login_model = api.model('Login', {
     'email': fields.String(required=True, description='User email'),
