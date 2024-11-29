@@ -15,7 +15,7 @@ user_model = api.model('User', {
 })
 
 # Route for handling multiple users
-@api.route('/')
+@api.route('/register')
 class UserList(Resource):
     @api.expect(user_model, validate=True)
     @api.response(201, 'User successfully created')
@@ -40,15 +40,9 @@ class UserList(Resource):
             'access_token': access_token
         }, 201
 
-    @jwt_required()  # Protect this route with JWT authentication
     @api.response(200, 'List of users retrieved successfully')
     def get(self):
-        """Retrieve the list of users (admin only)"""
-        current_user = get_jwt_identity()
-        
-        # Check if the current user is an admin
-        if not facade.is_admin(current_user):
-            return {'error': 'Unauthorized'}, 403
+        """Retrieve the list of users"""
         
         users = facade.user_repo.get_all()
         return [{'id': u.id, 'first_name': u.first_name, 'last_name': u.last_name, 'email': u.email} for u in users], 200
