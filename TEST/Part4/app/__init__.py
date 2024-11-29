@@ -5,13 +5,11 @@ from config import DevelopmentConfig
 from extensions import db, bcrypt, jwt
 from flask_jwt_extended import JWTManager
 
-jwt = JWTManager()
-
 def create_app(config=DevelopmentConfig):
     app = Flask(__name__)
     app.config.from_object(config)
 
-    app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
+    app.config['JWT_SECRET_KEY'] = config.JWT_SECRET_KEY
     jwt.init_app(app)
 
     # Initialiser les extensions
