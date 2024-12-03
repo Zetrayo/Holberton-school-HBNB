@@ -1,0 +1,188 @@
+/* Overall body styling */
+body {
+    font-family: 'Arial', sans-serif;  /* Use a clean font for the page */
+    background-color: #121212;  /* Dark background color for the entire page */
+    color: #e0e0e0;  /* Light text color for readability */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #1e1e1e;  /* Dark gray background for the header */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 150px;  /* Set logo size */
+    height: auto;
+}
+
+/* Search bar container */
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.search-container button {
+    padding: 8px 16px;
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #00a0cc;  /* Slightly darker cyan on hover */
+}
+
+/* Main content section */
+main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;  /* Center the content */
+}
+
+/* Styling for the place details section */
+#place-details {
+    background-color: #1f1f1f;  /* Darker background for place details */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Darker shadow for modern look */
+    margin-bottom: 30px;
+}
+
+#place-details h1 {
+    font-size: 36px;
+    color: #00bfff;  /* Cyan color for headings */
+    margin-bottom: 15px;
+}
+
+#place-details p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #ccc;  /* Light grey text for paragraph */
+}
+
+#place-details strong {
+    color: #00bfff;  /* Highlight important labels with cyan */
+}
+
+/* Styling for reviews section */
+#reviews {
+    background-color: #1f1f1f;  /* Dark background for reviews section */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#reviews h3 {
+    font-size: 28px;
+    color: #00bfff;  /* Cyan color for reviews heading */
+    margin-bottom: 20px;
+}
+
+#reviews ul {
+    list-style: none;
+    padding: 0;
+}
+
+#reviews li {
+    font-size: 16px;
+    color: #ccc;  /* Light grey text for review items */
+    margin-bottom: 10px;
+}
+
+#reviews strong {
+    color: #00bfff;  /* Highlight reviewer names with cyan */
+}
+
+/* Add review form */
+#add-review-form {
+    background-color: #1f1f1f;  /* Dark background for the form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 30px;
+}
+
+#add-review-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #333;  /* Dark background for textarea */
+    margin-bottom: 20px;
+    resize: vertical;
+}
+
+#add-review-form button {
+    background-color: #00bfff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#add-review-form button:hover {
+    background-color: #00a0cc;  /* Slightly darker cyan on hover */
+}
+
+/* Style for no reviews message */
+#reviews ul li.no-reviews {
+    font-size: 18px;
+    color: #777;
+    font-style: italic;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    header {
+        padding: 15px;
+        justify-content: flex-start;
+    }
+
+    header img {
+        width: 120px;  /* Smaller logo on smaller screens */
+    }
+
+    #place-details, #reviews, #add-review-form {
+        padding: 20px;
+    }
+
+    #place-details h1 {
+        font-size: 28px;
+    }
+
+    #reviews h3 {
+        font-size: 24px;
+    }
+
+    #add-review-form textarea {
+        font-size: 14px;
+    }
+
+    #add-review-form button {
+        font-size: 14px;
+    }
+}

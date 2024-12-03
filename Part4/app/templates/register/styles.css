@@ -1,0 +1,237 @@
+/* ----------------- GLOBAL STYLES ----------------- */
+
+/* Body background color and basic font styling */
+body {
+    background-color: #f7f7f7; /* Light gray background for a clean look */
+    font-family: 'Open Sans', sans-serif; /* Easy-to-read font */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ----------------- FORM STYLING ----------------- */
+  
+  /* Main form container */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Increased spacing between form elements */
+    max-width: 400px; /* A little wider than before */
+    padding: 30px; /* Increased padding for a more airy look */
+    border-radius: 20px; /* Soft rounded corners */
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Perfect centering */
+    background-color: #fff; /* White background for a clean and light look */
+    color: #333; /* Dark text for better readability */
+    border: none; /* Remove border to make it look modern */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for a floating effect */
+  }
+  
+    /* ----------------- WELCOME STYLING ----------------- */
+  
+  /* Welcome styling */
+  .welcome {
+    font-size: 32px; /* Larger title for emphasis */
+    font-weight: 600;
+    letter-spacing: -1px; /* Tighter letter-spacing for a sleek look */
+    color: #ff5a5f; /* AirBnb-inspired coral color */
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0px; /* Space below the title */
+  }
+  
+  /* Title aura animation */
+  .title::before {
+    content: ""; 
+    position: absolute; 
+    left: 40%;
+    transform: translateX(-50%); /* Centered aura */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255, 90, 95, 0.3); /* Soft coral aura */
+    animation: pulse 1.5s ease-in-out infinite;
+    z-index: 0; /* Placed behind the text */
+  }
+
+  /* ----------------- TITLE STYLING ----------------- */
+  
+  /* Title styling */
+  .title {
+    font-size: 32px; /* Larger title for emphasis */
+    font-weight: 600;
+    letter-spacing: -1px; /* Tighter letter-spacing for a sleek look */
+    color: #ff5a5f; /* AirBnb-inspired coral color */
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: -50px; /* Space below the title */
+  }
+  
+  /* Title aura animation */
+  .title::before {
+    content: ""; 
+    position: absolute; 
+    left: 39%;
+    top: -40px;
+    transform: translateX(-50%); /* Centered aura */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(255, 90, 95, 0.3); /* Soft coral aura */
+    animation: pulse 1.5s ease-in-out infinite;
+    z-index: 0; /* Placed behind the text */
+  }
+  
+  /* ----------------- LOGO STYLING ----------------- */
+  
+  /* Logo positioning */
+  .logo {
+    width: 120px;
+    height: 50px;
+    position: absolute;
+    top: 5%; /* Placed at the top */
+    left: 50%;
+    transform: translateX(-50%); /* Horizontally centered */
+  }
+  
+  /* ----------------- INPUT FIELDS ----------------- */
+  
+  /* Input fields styling */
+  .form label {
+    font-size: 16px; /* Slightly larger label text */
+    font-weight: 500;
+  }
+  
+  .form .input {
+    background-color: #f0f0f0; /* Light gray background for input */
+    color: #333;
+    padding: 5px;
+    width: 93%;
+    border: 1px solid #ddd; /* Soft border color */
+    border-radius: 10px;
+    font-size: 16px; /* Larger text for better readability */
+    transition: border-color 0.3s ease; /* Smooth transition on focus */
+  }
+  
+  .form .input:focus {
+    border-color: #ff5a5f; /* Border turns coral on focus */
+    outline: none; /* Removes default focus outline */
+  }
+  
+  /* ----------------- BUTTON STYLING ----------------- */
+  
+  /* Submit button */
+  .submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5a5f; /* Main button color */
+    color: #fff;
+    font-size: 18px; /* Slightly smaller font */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .submit:hover {
+    background-color: #ff7377; /* Button color changes on hover */
+    transform: translateY(-3px); /* Slightly moves up for hover effect */
+  }
+  
+  /* ----------------- SIGNIN MESSAGE STYLING ----------------- */
+  
+  /* Sign-in message styling */
+  .message, 
+  .signin {
+    font-size: 14.5px;
+    color: rgba(0, 0, 0, 0.7); /* Subtle gray text for instructions */
+    text-align: center;
+  }
+  
+  .signin a {
+    color: #ff5a5f; /* Color for links (Airbnb-inspired coral) */
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .signin a:hover {
+    text-decoration: underline; /* Underline effect on hover */
+  }
+  
+  /* ----------------- FLEX CONTAINER ----------------- */
+  
+  /* Flexbox container for flexible layout */
+  .flex {
+    display: flex;
+    width: 100%;
+    gap: 15px; /* Increased gap for better separation */
+  }
+  
+  /* ----------------- ANIMATIONS ----------------- */
+  
+  /* Pulsing effect for aura */
+  @keyframes pulse {
+    from {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+  
+    to {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+  
+  /* ----------------- RESPONSIVE DESIGN ----------------- */
+  
+  /* For mobile screens */
+  @media (max-width: 768px) {
+    .form {
+      padding: 20px;
+      max-width: 90%;
+    }
+  
+    .title {
+      font-size: 28px; /* Slightly smaller title */
+    }
+  
+    .logo {
+      width: 80px;
+      height: 40px;
+    }
+  
+    .submit {
+      padding: 12px;
+      font-size: 16px; /* Adjust font size for mobile */
+    }
+  }
+  
+  /* For smaller screens (smartphones) */
+  @media (max-width: 480px) {
+    .form {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .title {
+      font-size: 24px; /* Even smaller title for very small screens */
+    }
+  
+    .logo {
+      width: 70px;
+      height: 35px;
+    }
+  
+    .submit {
+      padding: 12px;
+      font-size: 16px;
+    }
+  }
+  

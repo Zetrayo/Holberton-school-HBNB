@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 120px;
+    height: auto;
+}
+
+nav a {
+    color: #00bfff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #1e90ff;
+}
+
+main {
+    padding: 2rem;
+}
+
+#filter {
+    background-color: #1a1a1a;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+#filter label {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+#filter select {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+#places-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.place-item {
+    background-color: #2c2c2c;
+    padding: 1.5rem;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.place-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.place-item h3 {
+    font-size: 1.6rem;
+    color: #00bfff;
+    margin-bottom: 1rem;
+}
+
+.place-item p {
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    margin-bottom: 0.8rem;
+}
+
+.place-item ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.place-item ul li {
+    color: #e0e0e0;
+    margin-bottom: 0.5rem;
+}
+
+.error {
+    color: #ff4c4c;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+
+    #filter {
+        flex-direction: column;
+    }
+
+    #filter label {
+        margin-bottom: 0.5rem;
+    }
+
+    #filter select {
+        width: 100%;
+    }
+
+    #places-list {
+        grid-template-columns: 1fr;
+    }
+}

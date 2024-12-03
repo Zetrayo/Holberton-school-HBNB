@@ -84,6 +84,9 @@ class HBnBFacade:
     def get_all_places(self):
         return self.place_repo.get_all()  # Get all places
 
+    def get_places_by_user(user_id):
+        return Place.query.filter_by(owner_id=user_id).all()
+
     def update_place(self, place_id, place_data):
         place = self.get_place(place_id)
         if place:
