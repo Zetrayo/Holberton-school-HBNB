@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Function to send login data to the server
             async function loginUser(email, password) {
-                const response = await fetch('http://localhost:8080/api/v1/auth', {
+                const response = await fetch('http://localhost:5000/api/v1/auth', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

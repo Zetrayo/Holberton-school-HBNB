@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Function to handle user registration
             async function registerUser(first_name, last_name, email, password) {
-                const response = await fetch('http://localhost:8080/api/v1/user/register', {
+                const response = await fetch('http://localhost:5000/api/v1/user/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
