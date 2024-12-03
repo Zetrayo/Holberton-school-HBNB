@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Place Details</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8"> <!-- Character encoding for the document -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design settings -->
+    <title>Place Details</title> <!-- Title of the page -->
+    <!-- Link to external CSS file for styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='place_styles.css') }}">
 </head>
 <body>
+    <!-- Header section with the site logo -->
+    <header>
+        <img src="../pics/logo.png" alt="Page Logo">  <!-- Logo image for the site -->
+
+        <!-- Search bar -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search for a place...">
+            <button id="search-button">Search</button>
+        </div>
+    </header>
+    
+    <!-- Main content of the page -->
     <main>
+        <!-- Section where place details will be dynamically populated -->
         <section id="place-details">
-            <!-- Place details will be populated dynamically -->
+            <!-- Place details like title, description, price, etc. will be shown here -->
         </section>
+
+        <!-- Section to display reviews related to the place -->
         <section id="reviews">
-            <!-- Reviews will be populated dynamically -->
+            <!-- Reviews will be dynamically populated here -->
         </section>
-        <section id="add-review">
-            <h2>Add a Review</h2>
-            <form id="review-form">
-                <label for="review-text">Review:</label>
-                <textarea id="review-text" name="review-text" required></textarea>
-                
-                <button type="submit">Submit</button>
-            </form>
-        </section>
+
+        <!-- Hidden form for adding a new review (shown only if user is authenticated) -->
+        <div id="add-review-form" style="display: none;">
+            <h3>Add a Review</h3>
+            <!-- Text area for writing a review -->
+            <textarea id="review-text" placeholder="Write your review here..."></textarea>
+            <!-- Button to submit the review -->
+            <button id="submit-review">Submit Review</button>
+        </div>
     </main>
-    <script src="scripts.js"></script>
+
+    <!-- Link to external JavaScript file that handles dynamic content (place details, reviews, etc.) -->
+    <script src="{{ url_for('static', filename='place_scripts.js') }}"></script>
 </body>
 </html>

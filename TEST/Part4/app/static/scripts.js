@@ -2,59 +2,59 @@
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
+    if (parts.length === 2) return parts.pop().split(';').shift(); // Return the cookie value if found
+    return null; // Return null if the cookie doesn't exist
 }
 
-// Function to check user authentication
+// Function to check user authentication and adjust login link visibility
 function checkAuthentication() {
-    const loginLink = document.getElementById('login-link'); // Adjust ID if needed
-    const token = getCookie('jwt'); // Adjust cookie name if needed (it was 'jwt_token' before, now we assume it's 'jwt')
+    const loginLink = document.getElementById('login-link'); // Get the login link element
+    const token = getCookie('jwt'); // Retrieve JWT token from cookies
 
     if (token) {
-        // User is authenticated; hide the login link
+        // If the user is authenticated (JWT exists), hide the login link
         if (loginLink) {
             loginLink.style.display = 'none';
         }
     } else {
-        // User is not authenticated; show the login link
+        // If the user is not authenticated, show the login link
         if (loginLink) {
             loginLink.style.display = 'block';
         }
     }
 }
 
+// Function to fetch and display a list of places from the server
 async function fetchPlaces() {
     const placesList = document.getElementById('places-list'); // Container to display places
-    const token = getCookie('jwt'); // Adjust cookie name if needed
+    const token = getCookie('jwt'); // Retrieve JWT token for authentication if available
 
     try {
         const response = await fetch('/api/v1/places', {
-            method: 'GET',
+            method: 'GET', // Make a GET request to fetch places
             headers: {
                 'Content-Type': 'application/json',
-                // Include the JWT token in the Authorization header if it exists
-                ...(token && { 'Authorization': `Bearer ${token}` }),
+                ...(token && { 'Authorization': `Bearer ${token}` }), // Include token in header if authenticated
             },
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`HTTP error! Status: ${response.status}`); // Handle errors if response is not OK
         }
 
-        const places = await response.json();
+        const places = await response.json(); // Parse the response as JSON
 
-        // Populate the places list dynamically
         if (placesList && Array.isArray(places)) {
-            placesList.innerHTML = ''; // Clear any existing content before adding new places
+            placesList.innerHTML = ''; // Clear any existing places before adding new ones
 
             if (places.length === 0) {
-                placesList.innerHTML = '<p>No places available.</p>';
+                placesList.innerHTML = '<p>No places available.</p>'; // Show message if no places are available
             } else {
+                // Loop through the places array and display each place's details
                 places.forEach(place => {
                     const placeItem = document.createElement('div');
                     placeItem.className = 'place-item'; // Optional: Add a class for styling
-                    placeItem.dataset.price = place.price; // Store the price in the data attribute
+                    placeItem.dataset.price = place.price; // Store the place's price as a data attribute for filtering
 
                     placeItem.innerHTML = `
                         <h3>${place.title}</h3>
@@ -64,39 +64,39 @@ async function fetchPlaces() {
                         <ul>
                             <strong>Amenities:</strong>
                             ${place.amenities && place.amenities.length > 0
-                                ? place.amenities.map(amenity => `<li>${amenity}</li>`).join("")
+                                ? place.amenities.map(amenity => `<li>${amenity}</li>`).join("") // Loop through amenities
                                 : "<li>No amenities listed</li>"}
                         </ul>
                     `;
 
-                    // Append the dynamically created place item to the list
-                    placesList.appendChild(placeItem);
+                    placesList.appendChild(placeItem); // Append the new place item to the list
                 });
             }
         }
     } catch (error) {
-        console.error('Error fetching places:', error);
+        console.error('Error fetching places:', error); // Log errors to the console
 
         if (placesList) {
-            placesList.innerHTML = '<p class="error">Unable to fetch places. Please try again later.</p>';
+            placesList.innerHTML = '<p class="error">Unable to fetch places. Please try again later.</p>'; // Show error message to user
         }
     }
 }
 
-// Event listener for the price filter dropdown
+// Function to set up the price filter based on user selection
 function setupPriceFilter() {
-    const priceFilter = document.getElementById('price-filter'); // Price filter dropdown
-    const placesList = document.getElementById('places-list'); // Container to display places
+    const priceFilter = document.getElementById('price-filter'); // Get the price filter dropdown
+    const placesList = document.getElementById('places-list'); // Get the container to display places
 
     priceFilter.addEventListener('change', () => {
         const selectedPrice = parseFloat(priceFilter.value); // Get the selected price range
 
-        const places = placesList.getElementsByClassName('place-item'); // All place items
+        const places = placesList.getElementsByClassName('place-item'); // Get all place items for filtering
 
         // Loop through all place items and filter based on price
         Array.from(places).forEach(placeItem => {
-            const placePrice = parseFloat(placeItem.dataset.price); // Get the price of each place from data-price attribute
+            const placePrice = parseFloat(placeItem.dataset.price); // Get the price of the place from data-price attribute
 
+            // Show or hide places based on the selected price range
             if (selectedPrice === 0 || placePrice <= selectedPrice) {
                 placeItem.style.display = ''; // Show the place if it matches the filter
             } else {
@@ -106,9 +106,9 @@ function setupPriceFilter() {
     });
 }
 
-// Run the authentication check and setup filter on page load
+// Event listener to run functions on page load
 document.addEventListener('DOMContentLoaded', () => {
-    checkAuthentication();
-    fetchPlaces();  // Fetch and display places once the page loads
-    setupPriceFilter(); // Setup the price filter functionality
+    checkAuthentication(); // Check user authentication status on page load
+    fetchPlaces();  // Fetch and display places from the server
+    setupPriceFilter(); // Set up the price filter functionality
 });
