@@ -4,8 +4,7 @@
     <meta charset="UTF-8"> <!-- Character encoding for the document -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design settings -->
     <title>List of Places</title> <!-- Title of the page -->
-    <!-- Link to external CSS file for styling, using Flask's url_for to dynamically link the CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
     <!-- Header section containing the navigation links -->
@@ -41,7 +40,7 @@
         </section>
     </main>
 
-    <!-- Link to the JavaScript file using Flask's url_for to dynamically link the script -->
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+ 
+    <script src="../static/scripts.js"></script>
 </body>
 </html>

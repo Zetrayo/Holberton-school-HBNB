@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -11,32 +12,29 @@
 
 <header> <!-- Header with main title -->
 
-    <img src="../pics/logo.png" alt="Page Logo">  <!-- Logo -->
-    <h1> Welcome to HBNB</h1>  <!-- Main Title -->
+    <h1 class="welcome">Welcome to HBNB</h1>  <!-- Main Title -->
+
 
     <!-- No Nav needed here since login page -->
 
 </header>
+</div>
     <main>
-        <div class="login-class">
-            <h2>Login</h2>
-        
-            <div class="form">
-                <form id="login-form">
+<form class="form">
+    <p class="title">Login </p>
+    <img src="../pics/logo.png" alt="Page Logo" class="logo">  <!-- Logo -->
+        <div class="flex">
+        <label>
+            <input class="input" type="text" placeholder="Email" required="">
+        </label>
 
-                <input type="email" placeholder="Email" id="email" name="email" required>
+        <label>
+            <input class="input" type="text" placeholder="Password" required="">
+        </label>
+    </div>  
             
-                <input type="password" placeholder="Password" id="password" name="password" required>
-            
-                <button type="submit">Log in</button> <!-- button for click Event-->
-                </form>
-            </div>
-        </div>
-    </main>
-    <script src="scripts.js"></script>
-
-    <footer>
-        <p>@Copyright 2024 by Cthullu. All rights reserved</p>
-    </footer>
+    <button class="submit">Submit</button>
+    <p class="signin">Not registered yet? <a href="../register/new_user.html">Register</a> </p>
+</form>
+</main>
 </body>
-</html>
